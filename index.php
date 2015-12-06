@@ -12,6 +12,10 @@
       float: left;
       margin-right: 15px;
     }
+    .btn {
+      padding: 0;
+      font-size: 12px;
+    }
     </style>
   </head>
   <body>
@@ -46,7 +50,11 @@
           echo '<li class="site">', $site["id"],
             ': <a href="', $site["domain"],
 	    '">', $site["domain"], "</a>",
-            "[", $site["keyword"], "]</li>";
+            "[", $site["keyword"],
+	    ']<button class="remove btn btn-warning" data-id=',
+	    $site["id"],
+	    '><span class="glyphicon glyphicon-remove">',
+	    '</span></button></li>';
 	}
       }
       ?>
@@ -54,11 +62,20 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script>
-    var navas = $(".navbar a");
-    navas.each(function(index) {
-      if ($(this).href = location.href) {
-	$(this).addClass("active");
-      }
+    $(document).ready(function() {
+      var navas = $(".navbar a");
+      navas.each(function(index) {
+	if ($(this).href = location.href) {
+	  $(this).addClass("active");
+	}
+      });
+
+      $("button.remove").on("click", function() {
+	var id = $(this).data("id");
+	$.get("remove.php?id=" + id, function(data) {
+	  alert(data);
+	});
+      });
     });
     </script>
   </body>

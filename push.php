@@ -90,7 +90,7 @@
 	  $errno = curl_errno($ch);
 	  curl_close($ch);
 	  if ($result != 1) {
-	    return "url错误";
+	    return "连接失败";
 	  } else {
 	    return $result;
 	  }
