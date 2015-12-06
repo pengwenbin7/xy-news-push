@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>系统安装</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <div class="container">
+	<li><a class="home" href="/news-push/index.php">首页</a></li>
+	<li><a href="push.php">推送新闻</a></li>
+	<li><a href="add.html">添加站点</a></li>
+	<li><a href="log.html">查看日志</a></li>
+      </div>
+    </nav>
+    <div class="container">
+      <form action="install.php" method="post">
+	<p>用户名：　<input type="text" name="user" required value="root"></p>
+	<p>密码：　　<input type="password" name="pass"></p>
+	<p>数据库名：<input type="text" name="dbname" required></p>
+	<p><input type="submit" value="确定" disabled></p>
+      </form>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      
+      var navas = $(".navbar a");
+      navas.each(function(index) {
+	if ($(this).href = location.href) {
+	  $(this).addClass("active");
+	}
+      });
+
+      $("input[name=user]").on("focus", function() {
+	$(this).val("");
+      });
+
+      $("input[name=dbname]").on("blur", function() {
+	$("input[type=submit]").attr("disabled", true);
+	var dbname = $(this).val();
+	var user = $("input[name=user]").val();
+	var pass = $("input[name=pass]").val();
+	$.get("dbexist.php?dbname=" +
+	  dbname + "&user=" + user +
+	  "&pass=" + pass,
+	  function(data) {
+	    if (data == 0) {
+	      $("input[type=submit]").attr("disabled", false);
+	    } else {
+	      alert(data);
+	    }
+	  });
+      });
+    });
+    </script>
+  </body>
+</html>

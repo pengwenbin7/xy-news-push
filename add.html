@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <title>添加站点</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style>
+    li {
+      list-style-type: none;
+    }
+    .navbar li {
+      float: left;
+      margin-right: 15px;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <div class="container">
+	<li><a class="home" href="/news-push/index.php">首页</a></li>
+	<li><a href="push.php">推送新闻</a></li>
+	<li><a href="add.html">添加站点</a></li>
+	<li><a href="log.html">查看日志</a></li>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="notice">
+	网址推荐写成<i>http://www.example.com</i>的格式，但是通常（未禁用javascript）你写成如下的格式也是可以的：
+	<ul>
+	  <li><i>http://www.example.com/</i></li>
+	  <li><i>www.example.com/</i></li>
+	  <li><i>www.example.com</i></li>
+	</ul>
+	<p>关键词只能填一个，尽量填易搜到的，因为这个搜索能力是很弱的</p>
+      </div>
+      <div class="form">
+	<p>网　址：<input class="domain" type="test" placeholder="网址" required></p>
+	<p>关键词：<input class="keyword" type="test" placeholder="使用1个易搜到的关键词" required></p>
+	<button class="submit btn btn-info">确定</button>
+      </div>
+
+      <script src="assets/js/jquery.min.js"></script>
+      <script>
+      $(document).ready(function() {
+
+	var navas = $(".navbar a");
+	navas.each(function(index) {
+	  if ($(this).href = location.href) {
+	    $(this).addClass("active");
+	  }
+	});
+
+	$(".submit").on("click", function() {
+	  console.log("post");
+	  var domain = $(".domain").val().trim();
+	  if (domain.endsWith("/")) {
+	    domain = domain.slice(0, -1);
+	  }
+	  if (!(domain.startsWith("http://") || domain.startsWith("https://"))) {
+	    domain = "http://" + domain;
+	  }
+	  $.post("add.php", {
+	    "domain": domain,
+	    "keyword": $(".keyword").val().trim()
+	  }, function(data) {
+	    if (data == 1) {
+	      alert("添加成功");
+	    } else {
+	      alert("失败，请重试");
+	    }
+	  });
+	});
+      });
+      </script>
+  </body>
+</html>
