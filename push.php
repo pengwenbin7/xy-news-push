@@ -28,7 +28,7 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-bottom">
       <div class="container">
-	<li><a class="home" href="/news-push/index.php">首页</a></li>
+	<li><a class="home" href="/xy-news-push/index.php">首页</a></li>
 	<li><a href="push.php">推送新闻</a></li>
 	<li><a href="add.html">添加站点</a></li>
 	<li><a href="log.html">查看日志</a></li>
